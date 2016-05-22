@@ -1,22 +1,26 @@
 import { Template } from 'meteor/templating';
-import { ReactiveVar } from 'meteor/reactive-var';
 
 import './main.html';
+import { SleepEvents} from '../imports/api/sleepEvents.js';
 
-Template.hello.onCreated(function helloOnCreated() {
-  // counter starts at 0
-  this.counter = new ReactiveVar(0);
+Template.sleepEvents.helpers({
+  sleepEvents() {
+    return SleepEvents.find({},{sort: {eventTime: -1}});
+  },
+ 
 });
 
-Template.hello.helpers({
-  counter() {
-    return Template.instance().counter.get();
-  },
-});
+Template.eventForm.events({
+  'submit .new-event'(event){
+    event.preventDefault();
+    console.log("Why is this submitting ... ");
+    const target = event.target;
 
-Template.hello.events({
-  'click button'(event, instance) {
-    // increment the counter when button is clicked
-    instance.counter.set(instance.counter.get() + 1);
-  },
+    const eventName = target.eventName.value;
+    const eventTime = new Date(target.eventTime.value);
+    const notes = target.notes.value;
+    console.log(eventTime);
+    SleepEvents.insert({eventName: eventName, eventTime: eventTime, notes: notes});
+    
+  }
 });
