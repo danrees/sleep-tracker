@@ -3,6 +3,16 @@ import { Template } from 'meteor/templating';
 import './main.html';
 import { SleepEvents} from '../imports/api/sleepEvents.js';
 
+Template.quickForm.events({
+  'click .quickEvent'(event,template){
+    const eventType = event.target.value; 
+    const eventTime = new Date();
+    const notesField = template.find('#quickEventNotes');
+    const notes = notesField.value;
+    SleepEvents.insert({"eventName": eventType.toLowerCase(), "eventTime": eventTime, "notes": notes});
+    notesField.value = ""; 
+  },
+});
 Template.sleepEvents.helpers({
   sleepEvents() {
     return SleepEvents.find({},{sort: {eventTime: -1}});

@@ -5,6 +5,11 @@
 <body>
   <div class="container">
   <h1>Welcome to Meteor!</h1>
+    <div class="panel panel-default">
+    <div class="panel-body">
+      {{> quickForm }}
+    </div>
+    </div>
     <div class="row">
       {{> eventForm }}
     </div>
@@ -35,6 +40,16 @@
   {{/each}}  
   </tbody>
   </table>
+</template>
+<template name="quickForm">
+<div class="form-inline">
+  <input type="button" value="Sleep" class="btn btn-primary quickEvent" />
+  <input type="button" value="Wake" class="btn btn-primary quickEvent" />
+  <input type="button" value="Crib" class="btn btn-primary quickEvent" />
+  <input type="button" value="Abort" class="btn btn-primary quickEvent" />
+  <input type="button" value="Feed" class="btn btn-primary quickEvent" />
+  <input type="text" placeholder="Notes" class="form-control" id="quickEventNotes" />
+</div>
 </template>
 
 <template name="eventForm">
