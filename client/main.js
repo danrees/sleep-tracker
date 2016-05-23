@@ -7,9 +7,14 @@ Template.sleepEvents.helpers({
   sleepEvents() {
     return SleepEvents.find({},{sort: {eventTime: -1}});
   },
- 
 });
+Template.sleepEvents.events({
+  'click .del-event'(){
+    console.log("Why won't you delete?");
+    SleepEvents.remove(this._id);
+  },
 
+});
 Template.eventForm.events({
   'submit .new-event'(event){
     event.preventDefault();
@@ -22,5 +27,5 @@ Template.eventForm.events({
     console.log(eventTime);
     SleepEvents.insert({eventName: eventName, eventTime: eventTime, notes: notes});
     
-  }
+  },
 });
