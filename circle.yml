@@ -4,3 +4,6 @@ dependencies:
   override:
     - meteor || curl https://install.meteor.com | /bin/bash
 
+test:
+  override:
+    - echo "test"
