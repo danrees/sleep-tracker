@@ -1,4 +1,5 @@
 import { Template } from 'meteor/templating';
+import { Meteor } from 'meteor/meteor';
 
 import './main.html';
 import { SleepEvents} from '../imports/api/sleepEvents.js';
@@ -9,7 +10,8 @@ Template.quickForm.events({
     const eventTime = new Date();
     const notesField = template.find('#quickEventNotes');
     const notes = notesField.value;
-    SleepEvents.insert({"eventName": eventType.toLowerCase(), "eventTime": eventTime, "notes": notes});
+    Meteor.call('sleepEvents.insert', eventType, eventTime, notes);
+    //SleepEvents.insert({"eventName": eventType.toLowerCase(), "eventTime": eventTime, "notes": notes});
     notesField.value = ""; 
   },
 });
@@ -21,7 +23,8 @@ Template.sleepEvents.helpers({
 Template.sleepEvents.events({
   'click .del-event'(){
     console.log("Why won't you delete?");
-    SleepEvents.remove(this._id);
+    //SleepEvents.remove(this._id);
+    Meteor.call('sleepEvents.remove',this._id);
   },
 
 });
